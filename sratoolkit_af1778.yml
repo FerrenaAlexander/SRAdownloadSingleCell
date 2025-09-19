@@ -1,0 +1,9 @@
+name: sratoolkit_af1778
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - parallel-fastq-dump
+  - sra-tools
+  - anaconda::csvkit
