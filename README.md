@@ -1,17 +1,21 @@
 # SRAdownloadSingleCell
 
 ### Purpose: 
-download SRA files fast with `parallel-fastq-dump`. Organize files to samples (GSM codes) and rename for Cellranger. 
+Download SRA files fast with sra-tools function `fasterq-dump`. Organize .fastq.gz files to samples (GSM codes), and rename for Cellranger. 
+
+<br />
 
 ### Requirements: 
 - sra-tools v3.2.0
 - csvkit v1.0.5
-- pigz v2.4 - note I used a verison pre-installed on NYU HPC, not myelf or in conda.
+- pigz v2.4 - note, I used a verison pre-installed on NYU HPC, not myelf or in conda.
+- later versions will probably work fine.
 
-Conda yml file included in repo.
+Conda yml file included in repo: 
 
-I think Pigz was installed from [here](https://zlib.net/pigz/) (current is 2.8, probably works fine).
+I think Pigz was installed from [here](https://zlib.net/pigz/).
 
+<br />
 
 ### Input parameters: 
 - `infolder`: a folder that contains a subdirectory called sratabfolder. This subfolder can contain one or more files like below.
@@ -19,14 +23,14 @@ I think Pigz was installed from [here](https://zlib.net/pigz/) (current is 2.8, 
 - `alloutsdir`: where to write all files. default is ${infolder}/GEOSRA
 
 
-
+<br />
 
 ### Outputs: 
 Two folders, with the following info:
 - **GSEdir**: the raw downloaded fastq files per GSE study.
 - **PARSED**: For each GSE study, soft-links (symlinks) to files in GSEdir are sorted by "GSM" sample. Additinaly, the symlinks are named in a manner that is compatible for Cellranger. The symlinks can be used for downstream applications, like Cellranger.
 
-
+<br />
 
 ## Input format:
 
@@ -56,7 +60,7 @@ SRR10533819,GSM4192841
 
 The order of these columns or the presence/absence of other columns is not important.
 
-
+<br />
 
 ## Method
 1. From each of the sraruntables (ie, for each GSE), extract all SRRs, download via fasterq-dump, and zip with pigz.
