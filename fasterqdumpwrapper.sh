@@ -1,22 +1,22 @@
 #!/bin/bash -l
 #SBATCH -p cpu_dev,cpu_short,cpu_medium,fn_short,fn_medium
-#SBATCH --job-name=try3fqd
+#SBATCH --job-name=fqd
 #SBATCH -N 1
 #SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=10
 #SBATCH --mem=20gb
 #SBATCH -t 12:00:00
-#SBATCH -o /gpfs/data/moorelab/CoenERV.2025.03.04/scripts/MouseIntegratedGabriel/jobreps/%x-%A_%a.out
+#SBATCH -o /PATH/TO/JOBREPS/%x-%A_%a.out
 #SBATCH --array=0-4
 
-###  0-4 will be the indices
-# run 0 as a test... so 1-4
-# SraRunTable_GSE141038_SharmaOneBl.csv
-# SraRunTable_GSE161494_AfonsoOneCtl.csv
-# SraRunTable_GSE168389_SchlegelTwoBlAndOneReg.csv
-# SraRunTable_GSE246316_BarciaDuranTwoLL.csv
-# SraRunTable_GSE253555_CyrTwoBL.csv
+### Zero-based indexing: for 5 sratables, 0-4 will be the indices
+# 0 - SraRunTable_GSE141038_SharmaOneBl.csv
+# 1 - SraRunTable_GSE161494_AfonsoOneCtl.csv
+# 2 - SraRunTable_GSE168389_SchlegelTwoBlAndOneReg.csv
+# 3 - SraRunTable_GSE246316_BarciaDuranTwoLL.csv
+# 4 - SraRunTable_GSE253555_CyrTwoBL.csv
 
+# YOU MUST SOURCE YOUR OWN CONDA ENV OR ACTIVATE IT WITH "conda activate"
 source /gpfs/data/cvrcbioinfolab/af1778/condaenvs/CONDA_SH_SCRIPTS/sratoolkit_af1778.sh
 
 
@@ -24,13 +24,14 @@ source /gpfs/data/cvrcbioinfolab/af1778/condaenvs/CONDA_SH_SCRIPTS/sratoolkit_af
 ## INPARAMS ##
 
 #INPUT FOLDER, SHOULD HAVE A SUBDIR CALLED sraruntables
-infolder=/gpfs/data/moorelab/CoenERV.2025.03.04/data/MouseMetaAnalysis
+# infolder=/gpfs/data/moorelab/CoenERV.2025.03.04/data/MouseMetaAnalysis
+infolder=PATH/TO/FOLDER
 
 #n threads
 nthreads=10
 
 #outputs
-alloutsdir=${infolder}/GEOSRA_try3_fasterqdump
+alloutsdir=${infolder}/GEOSRA
 
 
 
