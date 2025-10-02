@@ -4,6 +4,5 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - parallel-fastq-dump
   - sra-tools
   - anaconda::csvkit
