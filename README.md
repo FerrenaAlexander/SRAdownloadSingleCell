@@ -1,23 +1,27 @@
 # SRAdownloadSingleCell
 
-#### Purpose: 
+### Purpose: 
 download SRA files fast with `parallel-fastq-dump`. Organize files to samples (GSM codes) and rename for Cellranger. 
 
-#### Requirements: 
-- parallel-fastq-dump v0.6.7
+### Requirements: 
 - sra-tools v3.2.0
 - csvkit v1.0.5
+- pigz v2.4 - note I used a verison pre-installed on NYU HPC, not myelf or in conda.
 
 Conda yml file included in repo.
 
+I think Pigz was installed from [here](https://zlib.net/pigz/) (current is 2.8, probably works fine).
 
-#### Input parameters: 
+
+### Input parameters: 
 - `infolder`: a folder that contains a subdirectory called sratabfolder. This subfolder can contain one or more files like below.
-- `nthreads`: number of CPUs used by parallel-fastq-dump
+- `nthreads`: number of CPUs used by fasterq-dump and pigz.
 - `alloutsdir`: where to write all files. default is ${infolder}/GEOSRA
 
 
-#### Outputs: 
+
+
+### Outputs: 
 Two folders, with the following info:
 - **GSEdir**: the raw downloaded fastq files per GSE study.
 - **PARSED**: For each GSE study, soft-links (symlinks) to files in GSEdir are sorted by "GSM" sample. Additinaly, the symlinks are named in a manner that is compatible for Cellranger. The symlinks can be used for downstream applications, like Cellranger.
@@ -51,3 +55,12 @@ SRR10533819,GSM4192841
 ```
 
 The order of these columns or the presence/absence of other columns is not important.
+
+
+
+## Method
+1. From each of the sraruntables (ie, for each GSE), extract all SRRs, download via fasterq-dump, and zip with pigz.
+2. A single GSM sample can have multiple SRR IDs (ie if there are multiple "lanes" for one single scRNAseq sample). Thus, we map SRRs to each GSM (sample). Organize SRRs to GSM folders, and place symlinks of each SRR ID's fastq files within. It should work if there are even more than 2 fastq files (tested on srrid_1-3.fastq.gz) - a prior version with parallel-fastq-dump did not split these properly and this script was hardcoded with fq (1-2) (this is fixed now).
+3. convert the fastq symlink names to be compatible with Cellranger.
+
+Potential future plan: just fully rename the fastq files, rather than use symlink.
