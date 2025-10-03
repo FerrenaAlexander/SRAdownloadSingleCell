@@ -28,7 +28,7 @@ I think Pigz was installed from [here](https://zlib.net/pigz/).
 ### Outputs: 
 Two folders, with the following info:
 - **GSEdir**: the raw downloaded fastq files per GSE study.
-- **PARSED**: For each GSE study, soft-links (symlinks) to files in GSEdir are sorted by "GSM" sample. Additinaly, the symlinks are named in a manner that is compatible for Cellranger. The symlinks can be used for downstream applications, like Cellranger.
+- **PARSED**: For each GSE study, soft-links (symlinks) to files in GSEdir are sorted by "GSM" sample. The symlinks are named in a manner that is compatible for Cellranger.
 
 <br />
 
