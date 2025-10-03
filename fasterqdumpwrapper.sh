@@ -155,7 +155,8 @@ printf '\n\n\nPARSING START\n\n\n'
 
 cd $infolder
 # outdir=${infolder}/GEOSRA/gsedir
-newoutdir=${infolder}/GEOSRA/PARSED
+# newoutdir=${infolder}/GEOSRA/PARSED
+newoutdir=${alloutsdir}/PARSED
 sampoutdir=$newoutdir/$gse_id
 
 
