@@ -64,7 +64,14 @@ The order of these columns or the presence/absence of other columns is not impor
 
 ## Method
 1. From each of the sraruntables (ie, for each GSE), extract all SRRs, download via fasterq-dump, and zip with pigz.
-2. A single GSM sample can have multiple SRR IDs (ie if there are multiple "lanes" for one single scRNAseq sample). Thus, we map SRRs to each GSM (sample). Organize SRRs to GSM folders, and place symlinks of each SRR ID's fastq files within. It should work if there are even more than 2 fastq files (tested on srrid_1-3.fastq.gz) - a prior version with parallel-fastq-dump did not split these properly and this script was hardcoded with fq (1-2) (this is fixed now).
-3. convert the fastq symlink names to be compatible with Cellranger.
+2. A single GSM sample can have multiple SRR IDs (ie if there are multiple "lanes" for one single scRNAseq sample). Thus, we map SRRs to each GSM (sample). Organize SRRs to GSM folders, and place hardlinks of each SRR ID's fastq files within. It should work if there are even more than 2 fastq files (tested on srrid_1-3.fastq.gz) - a prior version with parallel-fastq-dump did not split these properly and this script was hardcoded with fq (1-2) (this is fixed now).
+3. convert the fastq hardlinks names to be compatible with Cellranger.
 
-Potential future plan: just fully rename the fastq files, rather than use symlink.
+
+
+<br />
+
+## changelog
+
+### 2026_03_12
+- script now uses hardlinks instead of symlinks. will not break if the folders are moved
