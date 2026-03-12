@@ -215,7 +215,8 @@ for sample in "${!sample_map[@]}"; do
 	 for fqfile in $(ls $outdir/${run}_*.fastq.gz); do
 		# echo $fqfile; 
 
-		ln -s $fqfile $sample_dir/
+		#ln -s $fqfile $sample_dir/ # SOFT LINK ; BREAKS IF MOVED
+		ln $fqfile $sample_dir/ # HARD LINK ; basically an inode pointer, more stable, does not actually take up double the mem
 
 		done
     done
